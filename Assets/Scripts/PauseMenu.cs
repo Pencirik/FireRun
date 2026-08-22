@@ -5,8 +5,14 @@ public class PauseMenu : MonoBehaviour
 {
     [Header("Pannello di Pausa")]
     [SerializeField] private GameObject pauseMenuPanel;
+    [SerializeField] private GameObject settingsMenuPanel;
 
     private bool isPaused = false;
+
+    void Start()
+    {
+        Time.timeScale = 1f; // Assicura che il tempo sia sempre attivo nel menu
+    }
 
     void Update()
     {
@@ -38,10 +44,18 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
     }
 
-    public void OpenSettings()
+     public void OpenSettings()
     {
-        Debug.Log("Apertura impostazioni...");
+        if (pauseMenuPanel != null) pauseMenuPanel.SetActive(false);
+        if (settingsMenuPanel != null) settingsMenuPanel.SetActive(true);
     }
+
+    public void CloseSettings()
+    {
+        if (settingsMenuPanel != null) settingsMenuPanel.SetActive(false);
+        if (pauseMenuPanel != null) pauseMenuPanel.SetActive(true);
+    }
+
 
 public void QuitToMainMenu()
 {
@@ -53,4 +67,5 @@ public void QuitToMainMenu()
 
     SceneManager.LoadScene("MainMenu");
 }
+
 }
