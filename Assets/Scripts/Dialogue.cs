@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,16 +42,35 @@ public class NewMonoBehaviourScript : MonoBehaviour
     }
 
     IEnumerator TypeLine()
+{
+    textComponent.text = string.Empty;
+    string currentLine = lines[index];
+    
+    int i = 0;
+    while (i < currentLine.Length)
     {
-        textComponent.text = string.Empty;
-        
-        foreach (char c in lines[index].ToCharArray())
+        // Se troviamo l'inizio di un tag (es. "<sprite...")
+        if (currentLine[i] == '<')
         {
-            textComponent.text += c;
-            // IMPORTANTE: Usiamo WaitForSecondsRealtime perché il timeScale è a 0!
-            yield return new WaitForSecondsRealtime(textSpeed);
+            // Cerchiamo la fine del tag '>'
+            int closingIndex = currentLine.IndexOf('>', i);
+            if (closingIndex != -1)
+            {
+                // Aggiungiamo l'intero tag al testo tutto in un colpo solo
+                textComponent.text += currentLine.Substring(i, (closingIndex - i) + 1);
+                // Spostiamo l'indice alla fine del tag
+                i = closingIndex + 1;
+                continue;
+            }
         }
+
+        // Altrimenti, scriviamo il normale carattere uno alla volta
+        textComponent.text += currentLine[i];
+        i++;
+        
+        yield return new WaitForSecondsRealtime(textSpeed);
     }
+}
 
     void NextLine()
     {
