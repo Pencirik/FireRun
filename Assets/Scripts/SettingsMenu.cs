@@ -5,17 +5,15 @@ using UnityEngine.Audio;
 
 public class SettingsMenu : MonoBehaviour
 {
-    [Header("Master Volume")]
+    [Header("Volume")]
     [SerializeField] private Slider masterSlider;
-
-    [Header("SFX Volume")]
     [SerializeField] private Slider sfxSlider;
+    public AudioMixer audioMixer;
 
     [Header("Grafica")]
     [SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private Toggle fullscreenToggle; // Assicurati di collegarlo nell'Inspector
 
-    public AudioMixer audioMixer;
 
     void Awake()
     {
