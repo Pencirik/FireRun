@@ -6,17 +6,20 @@ public class PauseMenu : MonoBehaviour
     [Header("Pannello di Pausa")]
     [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private GameObject settingsMenuPanel;
+    [SerializeField] private GameObject gameOverPanel;
 
     private bool isPaused = false;
+    private GameObject previousPanel;
 
     void Start()
     {
-        Time.timeScale = 1f; // Assicura che il tempo sia sempre attivo nel menu
+        Time.timeScale = 1f; 
     }
 
     void Update()
     {
-        // Controlla se il giocatore preme il tasto ESC
+        if (gameOverPanel != null && gameOverPanel.activeSelf) return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
@@ -32,40 +35,66 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        pauseMenuPanel.SetActive(false);
-        Time.timeScale = 1f; // Riattiva il tempo di gioco normale
+        if (pauseMenuPanel != null) pauseMenuPanel.SetActive(false);
+        Time.timeScale = 1f; 
         isPaused = false;
     }
 
     void PauseGame()
     {
-        pauseMenuPanel.SetActive(true);
-        Time.timeScale = 0f; // Blocca completamente il tempo (ferma il fumo, il player, ecc.)
+        if (pauseMenuPanel != null) pauseMenuPanel.SetActive(true);
+        Time.timeScale = 0f;
         isPaused = true;
     }
 
-     public void OpenSettings()
+    public void OpenSettings()
     {
-        if (pauseMenuPanel != null) pauseMenuPanel.SetActive(false);
+        // Controlla da solo quale pannello è aperto e lo memorizza
+        if (pauseMenuPanel != null && pauseMenuPanel.activeSelf)
+        {
+            previousPanel = pauseMenuPanel;
+            pauseMenuPanel.SetActive(false);
+        }
+        else if (gameOverPanel != null && gameOverPanel.activeSelf)
+        {
+            previousPanel = gameOverPanel;
+            gameOverPanel.SetActive(false);
+        }
+
         if (settingsMenuPanel != null) settingsMenuPanel.SetActive(true);
     }
 
     public void CloseSettings()
     {
-        if (settingsMenuPanel != null) settingsMenuPanel.SetActive(false);
-        if (pauseMenuPanel != null) pauseMenuPanel.SetActive(true);
+       if (settingsMenuPanel != null) settingsMenuPanel.SetActive(false);
+
+       // Riapre automaticamente il pannello salvato in precedenza
+       if (previousPanel != null)
+       {
+           previousPanel.SetActive(true);
+       }
+       else if (pauseMenuPanel != null)
+       {
+           pauseMenuPanel.SetActive(true); // Fallback di sicurezza
+       }
     }
 
+    // Chiamato dal pulsante "Retry" del pannello Game Over
+    public void RetryGame()
+    {
+        Time.timeScale = 1f;
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
-public void QuitToMainMenu()
-{
-    Time.timeScale = 1f; // Riattiva il tempo
+    public void QuitToMainMenu()
+    {
+        Time.timeScale = 1f; 
 
-    // Sblocca e mostra il mouse per il menu principale
-    Cursor.lockState = CursorLockMode.None;
-    Cursor.visible = true;
+        // Sblocca e mostra il mouse per il menu principale
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
-    SceneManager.LoadScene("MainMenu");
-}
-
+        SceneManager.LoadScene("MainMenu");
+    }
 }

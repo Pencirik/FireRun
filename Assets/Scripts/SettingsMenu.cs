@@ -12,7 +12,7 @@ public class SettingsMenu : MonoBehaviour
 
     [Header("Grafica")]
     [SerializeField] private TMP_Dropdown resolutionDropdown;
-    [SerializeField] private Toggle fullscreenToggle; // Assicurati di collegarlo nell'Inspector
+    [SerializeField] private Toggle fullscreenToggle; 
 
 
     void Awake()
