@@ -1760,6 +1760,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: daf568f51c2fa264691d172eec050e32, type: 3}
       insertIndex: -1
       addedObject: {fileID: 385524464}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: daf568f51c2fa264691d172eec050e32, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 385524468}
   m_SourcePrefab: {fileID: 100100000, guid: daf568f51c2fa264691d172eec050e32, type: 3}
 --- !u!1 &385524462 stripped
 GameObject:
@@ -1782,7 +1785,7 @@ MonoBehaviour:
   jumpHeight: 1.8
   gravityValue: -20
   rotationSpeed: 15
-  animator: {fileID: 385524466}
+  animator: {fileID: 385524468}
 --- !u!143 &385524465
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1808,16 +1811,33 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.33, z: 0}
---- !u!95 &385524466 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: daf568f51c2fa264691d172eec050e32, type: 3}
-  m_PrefabInstance: {fileID: 385524461}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &385524467 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: daf568f51c2fa264691d172eec050e32, type: 3}
   m_PrefabInstance: {fileID: 385524461}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &385524468
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385524462}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
+  m_Controller: {fileID: 9100000, guid: a598fa807b7f62e4e88c9cd01b547d29, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 1
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &394592942
 GameObject:
   m_ObjectHideFlags: 0

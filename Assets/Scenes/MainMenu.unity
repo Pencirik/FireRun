@@ -2072,7 +2072,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cbb5f8f07e6166b4b9b2180a807d81de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 47eaa4f43430bf14f996b113a313b0cc, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2568,15 +2568,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: daf568f51c2fa264691d172eec050e32, type: 3}
       insertIndex: -1
       addedObject: {fileID: 260735940}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: daf568f51c2fa264691d172eec050e32, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 260735943}
   m_SourcePrefab: {fileID: 100100000, guid: daf568f51c2fa264691d172eec050e32, type: 3}
 --- !u!1 &260735938 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: daf568f51c2fa264691d172eec050e32, type: 3}
-  m_PrefabInstance: {fileID: 260735937}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &260735939 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: daf568f51c2fa264691d172eec050e32, type: 3}
   m_PrefabInstance: {fileID: 260735937}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &260735940
@@ -2595,7 +2593,7 @@ MonoBehaviour:
   jumpHeight: 1.8
   gravityValue: 0
   rotationSpeed: 15
-  animator: {fileID: 260735939}
+  animator: {fileID: 260735943}
 --- !u!143 &260735941
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2612,7 +2610,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Height: 2.65
   m_Radius: 0.5
@@ -2621,6 +2619,28 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.33, z: 0}
+--- !u!95 &260735943
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260735938}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
+  m_Controller: {fileID: 9100000, guid: a598fa807b7f62e4e88c9cd01b547d29, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &296161538
 GameObject:
   m_ObjectHideFlags: 0
