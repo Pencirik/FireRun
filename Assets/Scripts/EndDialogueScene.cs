@@ -7,11 +7,9 @@ using UnityEditor;
 public class DialogueManager : MonoBehaviour
 {
     [Header("Configurazione Dialogo Finale")]
-    [Tooltip("Trascina qui il GameObject del box di dialogo da monitorare.")]
     public GameObject targetDialogueBox;
 
 #if UNITY_EDITOR
-    [Tooltip("Trascina qui la scena finale da caricare quando questo box di dialogo si chiude.")]
     public SceneAsset endSceneAsset;
 #endif
     private string endSceneName;
@@ -37,18 +35,16 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        // Se non abbiamo impostato un box di dialogo target, non facciamo nulla
         if (targetDialogueBox == null) return;
 
-        // Controlla se il box è appena diventato attivo
+        // Controlla se il box Ã¨ appena diventato attivo
         if (targetDialogueBox.activeInHierarchy)
         {
             wasActive = true;
-            isMonitoring = true; // Iniziamo a monitorare la sua chiusura
+            isMonitoring = true; 
         }
         else
         {
-            // Se lo stavamo monitorando, era attivo, e ora è diventato spento (chiuso)...
             if (isMonitoring && wasActive)
             {
                 TriggerEndScene();
@@ -62,7 +58,7 @@ public class DialogueManager : MonoBehaviour
         isMonitoring = false;
         wasActive = false;
 
-        // Ripristina il tempo di gioco per sicurezza
+        // Ripristina il tempo di gioco
         Time.timeScale = 1f;
 
         if (!string.IsNullOrEmpty(endSceneName))

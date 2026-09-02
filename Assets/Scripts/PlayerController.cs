@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // 1. Verifica se il player Ë a terra
+        // Verifica se il player √® a terra
         groundedPlayer = controller.isGrounded;
         
         if (groundedPlayer)
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
                 playerVelocity.y = -2f; 
             }
 
-            // Quando tocchiamo terra, sblocchiamo la possibilit‡ di saltare e diciamo all'animator che non stiamo saltando
+            // Quando tocchiamo terra, sblocchiamo la possibilit√† di saltare e diciamo all'animator che non stiamo saltando
             if (isJumping)
             {
                 isJumping = false;
@@ -50,11 +50,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            // Se siamo in aria, applichiamo la gravit‡
+            // Se siamo in aria, applichiamo la gravit√†
             playerVelocity.y += gravityValue * Time.deltaTime;
         }
 
-        // 2. Lettura input da tastiera
+        // Input da tastiera
         float moveX = 0f;
         float moveZ = 0f;
 
@@ -63,27 +63,27 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) moveX += 1f;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) moveX -= 1f;
 
-        // Passa i dati alla Blend Tree (solo se non sta saltando, per evitare conflitti visivi)
+        // Passa i dati al Blend Tree
         if (animator != null && !isJumping)
         {
             animator.SetFloat("InputX", moveX);
             animator.SetFloat("InputY", moveZ);
         }
 
-        // 3. Movimento orizzontale
+        // Movimento orizzontale
         Vector3 move = new Vector3(moveX, 0, moveZ).normalized;
         
-        // 4. Rotazione
+        // Rotazione
         if (move != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(move);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
-        // 5. Gestione del Salto (Protetto da isJumping e groundedPlayer)
+        // Gestione del salto
         if (Input.GetKeyDown(KeyCode.Space) && groundedPlayer && !isJumping)
         {
-            isJumping = true; // Blocca subito nuovi salti
+            isJumping = true;
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravityValue);
 
             if (animator != null)
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // 6. Applicazione finale del movimento
+        // Applicazione finale del movimento
         Vector3 finalMovement = (move * playerSpeed) + new Vector3(0, playerVelocity.y, 0);
         controller.Move(finalMovement * Time.deltaTime);
     }

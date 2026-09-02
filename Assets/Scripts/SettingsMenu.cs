@@ -8,7 +8,18 @@ public class SettingsMenu : MonoBehaviour
     [Header("Volume")]
     [SerializeField] private Slider masterSlider;
     [SerializeField] private Slider sfxSlider;
+    [SerializeField] private Slider musicSlider;
     public AudioMixer audioMixer;
+
+    [Header("Volume Toggles")]
+    [SerializeField] private Toggle masterMuteToggle;
+    [SerializeField] private Toggle sfxMuteToggle;
+    [SerializeField] private Toggle musicMuteToggle;
+
+    // Variabili per ricordare il volume prima di mutare
+    private float lastMasterVolume = 0f;
+    private float lastSfxVolume = 0f;
+    private float lastMusicVolume = 0f;
 
     [Header("Grafica")]
     [SerializeField] private TMP_Dropdown resolutionDropdown;
@@ -32,8 +43,7 @@ public class SettingsMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        // --- 1. CARICAMENTO O DEFAULT RISOLUZIONE E FULLSCREEN ---
-        // Se non esiste il salvataggio, usa default: Indice 2 (1920x1080) e Fullscreen attivo (1)
+        // Caricamento dati grafici
         int savedResIndex = PlayerPrefs.GetInt("ResolutionIndex", 2);
         int savedFullscreen = PlayerPrefs.GetInt("Fullscreen", 1);
         bool isFullscreen = savedFullscreen == 1;
@@ -50,21 +60,56 @@ public class SettingsMenu : MonoBehaviour
             fullscreenToggle.isOn = isFullscreen;
         }
 
-        // --- 2. CARICAMENTO O DEFAULT VOLUMI ---
-        // Se non esiste il salvataggio, usa default: 0 (o il valore massimo che preferisci)
+        // Caricamento volumi
         float savedMaster = PlayerPrefs.GetFloat("MasterVolume", 0f);
         float savedSfx = PlayerPrefs.GetFloat("SfxVolume", 0f);
+        float savedMusic = PlayerPrefs.GetFloat("MusicVolume", 0f);
 
-        if (masterSlider != null) masterSlider.value = savedMaster;
-        if (sfxSlider != null) sfxSlider.value = savedSfx;
+        // Impostiamo lo stato iniziale dei toggle e dei volumi
+        bool isMasterMuted = (savedMaster <= -80f);
+        bool isSfxMuted = (savedSfx <= -80f);
+        bool isMusicMuted = (savedMusic <= -80f);
+
+        if (masterMuteToggle != null) masterMuteToggle.SetIsOnWithoutNotify(isMasterMuted);
+        if (sfxMuteToggle != null) sfxMuteToggle.SetIsOnWithoutNotify(isSfxMuted);
+        if (musicMuteToggle != null) musicMuteToggle.SetIsOnWithoutNotify(isMusicMuted);
+
+        if (masterSlider != null) 
+        {
+            masterSlider.value = isMasterMuted ? 0f : savedMaster; // Se è mutato, teniamo lo slider a un valore sensato
+            if (isMasterMuted) lastMasterVolume = savedMaster == -80f ? 0f : savedMaster;
+            else lastMasterVolume = savedMaster;
+        }
+
+        if (sfxSlider != null) 
+        {
+            sfxSlider.value = isSfxMuted ? 0f : savedSfx;
+            if (isSfxMuted) lastSfxVolume = savedSfx == -80f ? 0f : savedSfx;
+            else lastSfxVolume = savedSfx;
+        }
+
+        if (musicSlider != null) 
+        {
+            musicSlider.value = isMusicMuted ? 0f : savedMusic;
+            if (isMusicMuted) lastMusicVolume = savedMusic == -80f ? 0f : savedMusic;
+            else lastMusicVolume = savedMusic;
+        }
 
         ApplyMasterVolume(savedMaster);
         ApplySfxVolume(savedSfx);
+        ApplyMusicVolume(savedMusic);
     }
 
-    // --- MASTER VOLUME ---
+    // MASTER VOLUME 
     public void OnMasterSliderChanged(float volume)
     {
+        // Se muoviamo lo slider, disattiviamo il muto automaticamente
+        if (masterMuteToggle != null && masterMuteToggle.isOn)
+        {
+            masterMuteToggle.SetIsOnWithoutNotify(false);
+        }
+
+        lastMasterVolume = volume;
         ApplyMasterVolume(volume);
 
         PlayerPrefs.SetFloat("MasterVolume", volume);
@@ -81,9 +126,37 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    // --- SFX VOLUME ---
+    // Master mute
+    public void OnMasterMuteToggled(bool isMuted)
+    {
+        if (isMuted)
+        {
+            if (masterSlider != null && masterSlider.value > -80f)
+            {
+                lastMasterVolume = masterSlider.value;
+            }
+
+            ApplyMasterVolume(-80f);
+            PlayerPrefs.SetFloat("MasterVolume", -80f);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            ApplyMasterVolume(lastMasterVolume);
+            PlayerPrefs.SetFloat("MasterVolume", lastMasterVolume);
+            PlayerPrefs.Save();
+        }
+    }
+
+    // SFX VOLUME
     public void OnSfxSliderChanged(float volume)
     {
+        if (sfxMuteToggle != null && sfxMuteToggle.isOn)
+        {
+            sfxMuteToggle.SetIsOnWithoutNotify(false);
+        }
+
+        lastSfxVolume = volume;
         ApplySfxVolume(volume);
 
         PlayerPrefs.SetFloat("SfxVolume", volume);
@@ -100,7 +173,76 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    // --- GRAFICA (RISOLUZIONE) ---
+    // SFX mute
+    public void OnSfxMuteToggled(bool isMuted)
+    {
+        if (isMuted)
+        {
+            if (sfxSlider != null && sfxSlider.value > -80f)
+            {
+                lastSfxVolume = sfxSlider.value;
+            }
+
+            ApplySfxVolume(-80f);
+            PlayerPrefs.SetFloat("SfxVolume", -80f);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            ApplySfxVolume(lastSfxVolume);
+            PlayerPrefs.SetFloat("SfxVolume", lastSfxVolume);
+            PlayerPrefs.Save();
+        }
+    }
+
+    // Music volume
+    public void OnMusicSliderChanged(float volume)
+    {
+        if (musicMuteToggle != null && musicMuteToggle.isOn)
+        {
+            musicMuteToggle.SetIsOnWithoutNotify(false);
+        }
+
+        lastMusicVolume = volume;
+        ApplyMusicVolume(volume);
+
+        PlayerPrefs.SetFloat("MusicVolume", volume);
+        PlayerPrefs.Save();
+        
+        Debug.Log("Music Volume salvato a: " + volume);
+    }
+
+    private void ApplyMusicVolume(float volume)
+    {
+        if (audioMixer != null)
+        {
+            audioMixer.SetFloat("MusicVolume", volume);
+        }
+    }
+
+    // Music mute
+    public void OnMusicMuteToggled(bool isMuted)
+    {
+        if (isMuted)
+        {
+            if (musicSlider != null && musicSlider.value > -80f)
+            {
+                lastMusicVolume = musicSlider.value;
+            }
+
+            ApplyMusicVolume(-80f);
+            PlayerPrefs.SetFloat("MusicVolume", -80f);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            ApplyMusicVolume(lastMusicVolume);
+            PlayerPrefs.SetFloat("MusicVolume", lastMusicVolume);
+            PlayerPrefs.Save();
+        }
+    }
+
+    // GRAFICA
     public void SetResolution(int index)
     {
         bool isFull = Screen.fullScreen;
@@ -123,7 +265,7 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    // --- FULLSCREEN ---
+    // FULLSCREEN
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;

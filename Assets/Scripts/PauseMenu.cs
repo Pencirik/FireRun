@@ -18,7 +18,11 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (gameOverPanel != null && gameOverPanel.activeSelf) return;
+        if ((gameOverPanel != null && gameOverPanel.activeSelf) || 
+            (settingsMenuPanel != null && settingsMenuPanel.activeSelf)) 
+        {
+            return;
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -49,7 +53,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenSettings()
     {
-        // Controlla da solo quale pannello è aperto e lo memorizza
+        // Controlla da solo quale pannello Ã¨ aperto e lo memorizza
         if (pauseMenuPanel != null && pauseMenuPanel.activeSelf)
         {
             previousPanel = pauseMenuPanel;
@@ -75,7 +79,7 @@ public class PauseMenu : MonoBehaviour
        }
        else if (pauseMenuPanel != null)
        {
-           pauseMenuPanel.SetActive(true); // Fallback di sicurezza
+           pauseMenuPanel.SetActive(true); // Fallback di sicurezza, in caso non memorizzi nessun panel
        }
     }
 

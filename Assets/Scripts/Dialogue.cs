@@ -11,7 +11,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private int index;
 
     private PlayerController playerController;
-    private Animator playerAnimator; // Riferimento all'Animator del player
+    private Animator playerAnimator;
 
     void Awake()
     {
@@ -19,7 +19,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
         if (player != null)
         {
             playerController = player.GetComponent<PlayerController>();
-            // Cerca il componente Animator sul player o nei suoi figli
             playerAnimator = player.GetComponentInChildren<Animator>();
         }
     }
@@ -55,13 +54,13 @@ public class NewMonoBehaviourScript : MonoBehaviour
         Time.timeScale = 1f;
         index = 0;
 
-        // Blocca il movimento del player all'inizio del dialogo
+        // Blocca il movimento
         if (playerController != null)
         {
             playerController.enabled = false;
         }
 
-        // Congela l'animazione del player nell'istante esatto
+        // Congela l'animazione del player
         if (playerAnimator != null)
         {
             playerAnimator.enabled = false;

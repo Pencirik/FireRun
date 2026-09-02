@@ -13,14 +13,12 @@ public class LevelSelectMenu : MonoBehaviour
     [SerializeField] private string level2SceneName = "Level2";
     [SerializeField] private string level3SceneName = "Level3";
 
-    // Pulsante "Go back" (Freccia per tornare indietro)
     public void OnBackButtonClicked()
     {
         if (levelSelectPanel != null) levelSelectPanel.SetActive(false);
         if (mainMenuPanel != null) mainMenuPanel.SetActive(true); 
     }
 
-    // Caricamento dei singoli livelli
     public void PlayTutorial()
     {
         SceneManager.LoadScene(tutorialSceneName);
