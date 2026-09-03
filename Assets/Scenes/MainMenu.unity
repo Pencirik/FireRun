@@ -2610,7 +2610,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 2.65
   m_Radius: 0.5
@@ -2628,7 +2628,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 260735938}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
+  m_Avatar: {fileID: 9000000, guid: daf568f51c2fa264691d172eec050e32, type: 3}
   m_Controller: {fileID: 9100000, guid: a598fa807b7f62e4e88c9cd01b547d29, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
