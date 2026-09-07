@@ -2805,7 +2805,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SFX VOLME
+  m_text: SFX VOLUME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e32a2ca77944c3444a59d7f03b453128, type: 2}
   m_sharedMaterial: {fileID: 1986010673867824025, guid: 4ca8dfbf994869843915d73bce206651, type: 2}
@@ -5606,7 +5606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f79c4d1a0449b43b65060ac2433e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5.7
+  moveSpeed: 5.5
   targetDialogueBoxes:
   - {fileID: 729206381}
   - {fileID: 1758553210}
@@ -20504,7 +20504,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MUSIC VOLME
+  m_text: MUSIC VOLUME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e32a2ca77944c3444a59d7f03b453128, type: 2}
   m_sharedMaterial: {fileID: 1986010673867824025, guid: 4ca8dfbf994869843915d73bce206651, type: 2}

@@ -5655,7 +5655,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SFX VOLME
+  m_text: SFX VOLUME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e32a2ca77944c3444a59d7f03b453128, type: 2}
   m_sharedMaterial: {fileID: 1986010673867824025, guid: 4ca8dfbf994869843915d73bce206651, type: 2}
@@ -11993,7 +11993,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MUSIC VOLME
+  m_text: MUSIC VOLUME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e32a2ca77944c3444a59d7f03b453128, type: 2}
   m_sharedMaterial: {fileID: 1986010673867824025, guid: 4ca8dfbf994869843915d73bce206651, type: 2}
